@@ -37,24 +37,19 @@ class SevenSegmentLed:
         self.SRCLK = serial_clock
         self.clock_speed = clock_speed
         self.digit_dictionary = digit_dictionary
+        self.output_device = SN74HC595NOutput(clock_speed=clock_speed, serial_data_input=serial_data_input,
+                                              memory_clock=memory_clock, serial_clock=serial_clock)
 
         if digit_dictionary is None:
             self.digit_dictionary = self.cathode_digit_dictionary
-
-        GPIO.setup(self.SDI, GPIO.OUT)
-        GPIO.setup(self.RCLK, GPIO.OUT)
-        GPIO.setup(self.SRCLK, GPIO.OUT)
-        GPIO.output(self.SDI, GPIO.LOW)
-        GPIO.output(self.RCLK, GPIO.LOW)
-        GPIO.output(self.SRCLK, GPIO.LOW)
 
     def set_number(self, number):
         hex_digits = self.convert_to_hex(number)
 
         for digit in hex_digits:
-            self.hc595_in(digit)
+            self.output_device.send_byte(digit)
 
-        self.hc595_out()
+        self.output_device.store_data()
 
     def convert_to_hex(self, number):
         string_number = str(number)
@@ -66,19 +61,34 @@ class SevenSegmentLed:
 
         return digits
 
-    def hc595_in(self, data):
+
+class SN74HC595NOutput:
+    def __init__(self, clock_speed=0.001, serial_data_input=11, memory_clock=12, serial_clock=13):
+        self.SDI = serial_data_input
+        self.RCLK = memory_clock
+        self.SRCLK = serial_clock
+        self.clock_speed = clock_speed
+
+        GPIO.setup(self.SDI, GPIO.OUT)
+        GPIO.setup(self.RCLK, GPIO.OUT)
+        GPIO.setup(self.SRCLK, GPIO.OUT)
+        GPIO.output(self.SDI, GPIO.LOW)
+        GPIO.output(self.RCLK, GPIO.LOW)
+        GPIO.output(self.SRCLK, GPIO.LOW)
+
+    def send_byte(self, data):
         for bit in range(0, 8):
             GPIO.output(self.SDI, 0x80 & (data << bit))
             GPIO.output(self.SRCLK, GPIO.HIGH)
-            self.tick()
+            self.__tick()
             GPIO.output(self.SRCLK, GPIO.LOW)
 
-    def hc595_out(self):
+    def store_data(self):
         GPIO.output(self.RCLK, GPIO.HIGH)
-        self.tick()
+        self.__tick()
         GPIO.output(self.RCLK, GPIO.LOW)
 
-    def tick(self):
+    def __tick(self):
         time.sleep(self.clock_speed)
 
 
