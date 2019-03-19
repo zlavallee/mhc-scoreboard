@@ -59,7 +59,10 @@ class SevenSegmentLed:
         string_number = str(number)
 
         ones_digit = self.digit_dictionary[int(string_number[0])]
-        tens_digit = self.digit_dictionary[int(string_number[1])]
+        if len(string_number) == 1:
+            tens_digit = 0
+        else:
+            tens_digit = self.digit_dictionary[int(string_number[1])]
 
         return tens_digit, ones_digit
 
