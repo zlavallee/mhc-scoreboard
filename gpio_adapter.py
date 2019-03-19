@@ -49,22 +49,22 @@ class SevenSegmentLed:
         GPIO.output(self.SRCLK, GPIO.LOW)
 
     def set_number(self, number):
-        ones_digit, tens_digit = self.convert_to_hex(number)
+        hex_digits = self.convert_to_hex(number)
 
-        self.hc595_in(tens_digit)
-        self.hc595_in(ones_digit)
+        for digit in hex_digits:
+            self.hc595_in(digit)
+
         self.hc595_out()
 
     def convert_to_hex(self, number):
         string_number = str(number)
 
-        ones_digit = self.digit_dictionary[int(string_number[0])]
-        if len(string_number) == 1:
-            tens_digit = 0
-        else:
-            tens_digit = self.digit_dictionary[int(string_number[1])]
+        digits = []
 
-        return tens_digit, ones_digit
+        for string_digit in string_number:
+            digits.insert(0, self.digit_dictionary[int(string_digit)])
+
+        return digits
 
     def hc595_in(self, data):
         for bit in range(0, 8):
@@ -97,7 +97,7 @@ def destroy():
 
 def loop(display):
     while True:
-        value = input('Enter two digit number to display:')
+        value = input('Enter number from 0-99 to display:')
         display.set_number(value)
 
 
@@ -106,5 +106,5 @@ if __name__ == '__main__':  # Program starting from here
     setup()
     try:
         loop(SevenSegmentLed())
-    except KeyboardInterrupt:
+    finally:
         destroy()
