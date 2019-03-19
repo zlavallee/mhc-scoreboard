@@ -53,6 +53,7 @@ class SevenSegmentLed:
 
         self.hc595_in(tens_digit)
         self.hc595_in(ones_digit)
+        self.hc595_out()
 
     def convert_to_hex(self, number):
         string_number = str(number)
@@ -92,8 +93,9 @@ def destroy():
 
 
 def loop(display):
-    value = input('Enter two digit number to display:')
-    display.set_number(value)
+    while True:
+        value = input('Enter two digit number to display:')
+        display.set_number(value)
 
 
 if __name__ == '__main__':  # Program starting from here
