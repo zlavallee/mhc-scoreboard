@@ -1,9 +1,12 @@
+import itertools
+
 import RPi.GPIO as GPIO
 import time
 
 
 class SevenSegmentLed:
     cathode_digit_dictionary = {
+        "clear": 0x00,
         0: 0x3F,
         1: 0x06,
         2: 0x5B,
@@ -17,6 +20,7 @@ class SevenSegmentLed:
     }
 
     anode_digit_dictionary = {
+        "clear": 0xFF,
         0: 0xC0,
         1: 0xF9,
         2: 0xA4,
@@ -42,6 +46,12 @@ class SevenSegmentLed:
 
         if digit_dictionary is None:
             self.digit_dictionary = self.cathode_digit_dictionary
+
+    def clear(self, digits=1):
+        for _ in itertools.repeat(digits):
+            self.output_device.send_byte(self.digit_dictionary["clear"])
+
+        self.output_device.store_data()
 
     def set_number(self, number):
         hex_digits = self.convert_to_hex(number)
