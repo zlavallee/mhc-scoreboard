@@ -109,23 +109,20 @@ export default function HurlingScoreboard() {
                 </Col>
             </Row>}
             <Row>
-                <Col>
+                <Col xs="12" md="6" lg="8" xl="8">
                     <HurlingTimer timer={timer}/>
-                </Col>
-            </Row>
-            <Row>
-                <Col sm="12" lg="6" xl="4" className="mt-3">
-                    <HurlingTeam name="Home" score={homeScore} onScoreChange={onHomeScoreChange}/>
-                </Col>
-                <Col sm="12" lg="6" xl="4" className="mt-3">
-                    <HurlingTeam name="Visitor" score={visitorScore} onScoreChange={onVisitorScoreChange}/>
                 </Col>
                 <Col xs="12" md="6" lg="4" xl="4" className="mt-3 mb-3 col-centered">
                     <Quarter onQuarterChange={onQuarterChange} quarter={quarter}/>
                 </Col>
             </Row>
             <Row>
-
+                <Col sm="12" lg="6" className="mt-3">
+                    <HurlingTeam name="Home" score={homeScore} onScoreChange={onHomeScoreChange}/>
+                </Col>
+                <Col sm="12" lg="6" className="mt-3">
+                    <HurlingTeam name="Visitor" score={visitorScore} onScoreChange={onVisitorScoreChange}/>
+                </Col>
             </Row>
             <SaveButton/>
         </div>
