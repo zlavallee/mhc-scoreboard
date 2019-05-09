@@ -8,3 +8,11 @@ export const createFullScore = (score) => {
         total: calculateScore(score)
     }
 };
+
+export const calculateSeconds = (totalSeconds) => {
+    return totalSeconds % 60;
+};
+
+export const calculateMinutes = (totalSeconds) => {
+    return Math.floor(totalSeconds / 60);
+};

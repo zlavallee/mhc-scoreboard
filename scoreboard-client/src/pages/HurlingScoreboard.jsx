@@ -8,6 +8,7 @@ import Quarter from "../components/hurling/Quarter";
 import {createFullScore} from "../lib/utils";
 import SaveButton from "../components/hurling/SaveButton";
 import AppAlert from "../components/shared/AppAlert";
+import HurlingTimer from "../components/hurling/HurlingTimer";
 
 export default function HurlingScoreboard() {
 
@@ -16,9 +17,15 @@ export default function HurlingScoreboard() {
         points: 0
     };
 
+    const initialTimer = {
+        value: 0,
+        stopped: true
+    };
+
     const [homeScore, updateHomeScore] = useState(emptyScore);
     const [visitorScore, updateVisitorScore] = useState(emptyScore);
     const [quarter, updateQuarter] = useState(0);
+    const [timer, updateTimer] = useState(initialTimer);
     const [alert, setAlert] = useState(null);
 
     useEffect(() => {
@@ -101,6 +108,11 @@ export default function HurlingScoreboard() {
                     <AppAlert message={alert.message} color={alert.color} onDismiss={() => setAlert(null)}/>
                 </Col>
             </Row>}
+            <Row>
+                <Col>
+                    <HurlingTimer timer={timer}/>
+                </Col>
+            </Row>
             <Row>
                 <Col sm="12" lg="6" xl="4" className="mt-3">
                     <HurlingTeam name="Home" score={homeScore} onScoreChange={onHomeScoreChange}/>
