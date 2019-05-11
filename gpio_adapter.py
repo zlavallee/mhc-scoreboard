@@ -1,75 +1,8 @@
-import itertools
-
-import RPi.GPIO as GPIO
 import time
 
+import RPi.GPIO as GPIO
 
-class SevenSegmentLed:
-    cathode_digit_dictionary = {
-        "clear": 0x00,
-        0: 0x3F,
-        1: 0x06,
-        2: 0x5B,
-        3: 0x4F,
-        4: 0x66,
-        5: 0x6D,
-        6: 0x7D,
-        7: 0x07,
-        8: 0x7F,
-        9: 0x67,
-    }
-
-    anode_digit_dictionary = {
-        "clear": 0xFF,
-        0: 0xC0,
-        1: 0xF9,
-        2: 0xA4,
-        3: 0xB0,
-        4: 0x99,
-        5: 0x92,
-        6: 0x82,
-        7: 0xF8,
-        8: 0x80,
-        9: 0x98,
-    }
-
-    def __init__(self, clock_speed=0.001, serial_data_input=11, memory_clock=12, serial_clock=13,
-                 digit_dictionary=None):
-
-        self.SDI = serial_data_input
-        self.RCLK = memory_clock
-        self.SRCLK = serial_clock
-        self.clock_speed = clock_speed
-        self.digit_dictionary = digit_dictionary
-        self.output_device = SN74HC595NOutput(clock_speed=clock_speed, serial_data_input=serial_data_input,
-                                              memory_clock=memory_clock, serial_clock=serial_clock)
-
-        if digit_dictionary is None:
-            self.digit_dictionary = self.cathode_digit_dictionary
-
-    def clear(self, digits=1):
-        for _ in itertools.repeat(digits):
-            self.output_device.send_byte(self.digit_dictionary["clear"])
-
-        self.output_device.store_data()
-
-    def set_number(self, number):
-        hex_digits = self.convert_to_hex(number)
-
-        for digit in hex_digits:
-            self.output_device.send_byte(digit)
-
-        self.output_device.store_data()
-
-    def convert_to_hex(self, number):
-        string_number = str(number)
-
-        digits = []
-
-        for string_digit in string_number:
-            digits.insert(0, self.digit_dictionary[int(string_digit)])
-
-        return digits
+from seven_segment_led import SevenSegmentLed
 
 
 class SN74HC595NOutput:
@@ -118,13 +51,13 @@ def destroy():
 def loop(display):
     while True:
         value = input('Enter number from 0-99 to display:')
-        display.set_number(value)
+        display.set_values(value)
 
 
 if __name__ == '__main__':  # Program starting from here
     print_msg()
     setup()
     try:
-        loop(SevenSegmentLed())
+        loop(SevenSegmentLed(SN74HC595NOutput()))
     finally:
         destroy()
