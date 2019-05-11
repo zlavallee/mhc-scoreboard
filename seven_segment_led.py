@@ -71,3 +71,4 @@ class SevenSegmentLed:
                 'Dictionary does not contain definition character value: {}'.format(value))
 
         return hex_value
+
