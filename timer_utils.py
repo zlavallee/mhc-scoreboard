@@ -1,4 +1,5 @@
 import math
+import time
 
 
 def to_seconds(nano_seconds):
@@ -15,3 +16,7 @@ def get_minutes(seconds):
 
 def get_seconds(seconds):
     return seconds % 60
+
+
+def get_time_ns():
+    return math.floor(time.time() * 1000000000)

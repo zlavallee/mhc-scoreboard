@@ -1,6 +1,4 @@
-import time
-
-from timer_utils import to_seconds, get_seconds, get_minutes
+from timer_utils import to_seconds, get_seconds, get_minutes, get_time_ns
 
 
 class NanoSecondTimer:
@@ -14,7 +12,7 @@ class NanoSecondTimer:
             return
 
         self.running = True
-        self.start_time = time.time_ns()
+        self.start_time = get_time_ns()
 
     def get_time(self):
         if not self.running:
@@ -37,7 +35,7 @@ class NanoSecondTimer:
         self.set()
 
     def _get_calculated_time(self):
-        return (time.time_ns() - self.start_time) + self.offset
+        return (get_time_ns() - self.start_time) + self.offset
 
 
 class MinuteSecondTimer(NanoSecondTimer):
