@@ -38,19 +38,18 @@ anode_digit_dictionary = {
 def get_minutes_seconds_string(timer):
     (minutes, seconds) = timer.get_minutes_seconds()
 
-    return to_string(minutes, padding_value='_', digits=2), to_string(minutes, digits=2)
+    return to_string(minutes, padding_value='_', digits=2), to_string(seconds, digits=2)
 
 
-def update_timer(wait_time, stop_event: Event, timer: MinuteSecondTimer, output: SevenSegmentLed):
+def update_timer(wait_time, stop_event: Event, timer: MinuteSecondTimer, output):
     while not stop_event.wait(wait_time):
         (minutes, seconds) = get_minutes_seconds_string(timer)
-        print('Updating timer to: {}:{}'.format(minutes, seconds))
         output.set_values(minutes.join(seconds))
 
 
 class ScoreboardTimer:
 
-    def __init__(self, output_device: SN74HC595NOutput, digit_dictionary=None, update_interval=.001):
+    def __init__(self, output_device: SN74HC595NOutput, digit_dictionary=None, update_interval=1):
         if digit_dictionary is None:
             digit_dictionary = anode_digit_dictionary
 
@@ -93,4 +92,5 @@ class ScoreboardTimer:
         return to_string(minutes, padding_value='_', digits=2), to_string(minutes, digits=2)
 
     def _create_timer_thread(self):
-        return Thread(target=update_timer, args=(self.update_interval, self.stop_event, self.timer, self.led_output))
+        return Thread(target=update_timer, args=(self.update_interval, self.stop_event, self.timer, self.led_output),
+                      daemon=True)

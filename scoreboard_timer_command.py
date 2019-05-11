@@ -36,7 +36,7 @@ def loop(scoreboard_timer):
             command()
 
 
-if __name__ == '__main__':  # Program starting from here
+if __name__ == '__main__':
     print_msg()
     setup()
     try:

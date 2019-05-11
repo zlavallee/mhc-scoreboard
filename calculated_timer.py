@@ -44,6 +44,7 @@ class MinuteSecondTimer(NanoSecondTimer):
 
     def get_minutes_seconds(self):
         seconds = to_seconds(self.get_time())
+
         return get_minutes(seconds), get_seconds(seconds)
 
     def get_seconds(self):

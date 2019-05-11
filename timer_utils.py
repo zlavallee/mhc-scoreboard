@@ -3,7 +3,7 @@ import time
 
 
 def to_seconds(nano_seconds):
-    return nano_seconds / 1000000000
+    return math.floor(nano_seconds / 1000000000)
 
 
 def from_seconds(seconds):
@@ -19,4 +19,4 @@ def get_seconds(seconds):
 
 
 def get_time_ns():
-    return math.floor(time.time() * 1000000000)
+    return int(round((time.time() * 1000000000)))
