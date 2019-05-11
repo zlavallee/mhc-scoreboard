@@ -1,7 +1,7 @@
 from threading import Thread, Event
 
-from gpio_adapter import SN74HC595NOutput
 from calculated_timer import MinuteSecondTimer
+from gpio_adapter import SN74HC595NOutput
 from seven_segment_led import SevenSegmentLed
 from string_utils import to_string
 from timer_utils import from_seconds
@@ -33,6 +33,18 @@ anode_digit_dictionary = {
     "8": 0x80,
     "9": 0x98,
 }
+
+
+def get_minutes_seconds_string(timer):
+    (minutes, seconds) = timer.get_minutes_seconds()
+
+    return to_string(minutes, padding_value='_', digits=2), to_string(minutes, digits=2)
+
+
+def update_timer(timer: MinuteSecondTimer, output: SevenSegmentLed):
+    (minutes, seconds) = get_minutes_seconds_string(timer)
+    print('Updating timer to: {}:{}'.format(minutes, seconds))
+    output.set_values(minutes.join(seconds))
 
 
 class ScoreboardTimer:
@@ -80,16 +92,15 @@ class ScoreboardTimer:
         return to_string(minutes, padding_value='_', digits=2), to_string(minutes, digits=2)
 
     def _create_timer_thread(self):
-        return ScoreboardTimerThread(self.stop_event, self._update_timer, self.update_interval)
+        return ScoreboardTimerThread(update_timer, (self.timer, self.led_output), self.stop_event, self.update_interval)
 
 
 class ScoreboardTimerThread(Thread):
-    def __init__(self, event: Event, action, wait_time):
-        Thread.__init__(self)
+    def __init__(self, target, args, event: Event, wait_time):
+        Thread.__init__(self, target=target, args=args)
         self.stopped = event
         self.wait_time = wait_time
-        self.action = action
 
     def run(self):
         while not self.stopped.wait(self.wait_time):
-            self.action()
+            super(ScoreboardTimerThread, self).run()
