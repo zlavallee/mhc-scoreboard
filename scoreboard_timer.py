@@ -41,10 +41,11 @@ def get_minutes_seconds_string(timer):
     return to_string(minutes, padding_value='_', digits=2), to_string(minutes, digits=2)
 
 
-def update_timer(timer: MinuteSecondTimer, output: SevenSegmentLed):
-    (minutes, seconds) = get_minutes_seconds_string(timer)
-    print('Updating timer to: {}:{}'.format(minutes, seconds))
-    output.set_values(minutes.join(seconds))
+def update_timer(wait_time, stop_event: Event, timer: MinuteSecondTimer, output: SevenSegmentLed):
+    while not stop_event.wait(wait_time):
+        (minutes, seconds) = get_minutes_seconds_string(timer)
+        print('Updating timer to: {}:{}'.format(minutes, seconds))
+        output.set_values(minutes.join(seconds))
 
 
 class ScoreboardTimer:
@@ -92,15 +93,4 @@ class ScoreboardTimer:
         return to_string(minutes, padding_value='_', digits=2), to_string(minutes, digits=2)
 
     def _create_timer_thread(self):
-        return ScoreboardTimerThread(update_timer, (self.timer, self.led_output), self.stop_event, self.update_interval)
-
-
-class ScoreboardTimerThread(Thread):
-    def __init__(self, target, args, event: Event, wait_time):
-        Thread.__init__(self, target=target, args=args)
-        self.stopped = event
-        self.wait_time = wait_time
-
-    def run(self):
-        while not self.stopped.wait(self.wait_time):
-            super(ScoreboardTimerThread, self).run()
+        return Thread(target=update_timer, args=(self.update_interval, self.stop_event, self.timer, self.led_output))
