@@ -46,7 +46,7 @@ class ScoreboardTimer:
         self.stop_event = Event()
         self.update_interval = update_interval
         self.timer_thread = self._create_timer_thread()
-        self.timer_thread.run()
+        self.timer_thread.start()
 
     def __del__(self):
         if self.timer_thread.is_alive():
