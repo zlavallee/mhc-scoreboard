@@ -1,40 +1,52 @@
 import os
 
 import flask
-from flask import Flask, send_from_directory, request, json, Response
+from flask import Flask, send_from_directory, request
+
+from scoreboard.scoreboard import create_scoreboard
 
 client_name = "scoreboard-client"
 
 app = Flask(__name__,
             static_folder="./{}/build/".format(client_name))
-
-scoreboard = {
-    'home': {
-        'goals': 2,
-        'points': 1,
-        'total': 10
-    },
-    'visitor': {
-        'goals': 5,
-        'points': 0,
-        'total': 10
-    },
-    'quarter': 1
-}
+scoreboard = create_scoreboard()
 
 
 @app.route('/api/v1.0/scoreboard', methods=['GET'])
 def get_scoreboard():
-    print("GET Scoreboard: ", scoreboard)
-    return flask.jsonify(scoreboard)
+    return flask.jsonify(scoreboard.scoreboard)
 
 
 @app.route('/api/v1.0/scoreboard', methods=['POST'])
 def post_scoreboard():
     scoreboard_json = request.get_json()
-    print("POST Scoreboard: ", scoreboard_json)
+    scoreboard.scoreboard = scoreboard_json
 
-    return flask.jsonify(scoreboard_json), 200
+    return flask.jsonify(scoreboard.scoreboard), 200
+
+
+@app.route('/api/v1.0/timer', methods=['GET'])
+def get_timer():
+    return flask.jsonify(scoreboard.timer), 200
+
+
+@app.route('/api/v1.0/timer', methods=['POST'])
+def set_timer():
+    timer_json = request.get_json()
+    scoreboard.timer = timer_json
+    return flask.jsonify(scoreboard.timer), 200
+
+
+@app.route('/api/v1.0/timer/start', methods=['POST'])
+def start_timer():
+    scoreboard.start_timer()
+    return 200
+
+
+@app.route('/api/v1.0/timer/stop', methods=['POST'])
+def stop_timer():
+    scoreboard.stop_timer()
+    return 200
 
 
 @app.route('/', defaults={'path': ''})

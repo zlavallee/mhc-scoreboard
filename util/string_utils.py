@@ -1,6 +1,12 @@
-def to_string(number: int, padding_value='0', digits=None):
+def to_padded_string(number, padding_value='0', digits=None):
+    if number is None:
+        number = padding_value
+
     if digits is None:
-        digits = len(str(number))
+        if number is None:
+            digits = 1
+        else:
+            digits = len(str(number))
 
     string_number = str(number).rjust(digits, padding_value)
 

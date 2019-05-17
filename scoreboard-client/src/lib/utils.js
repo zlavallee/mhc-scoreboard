@@ -10,9 +10,13 @@ export const createFullScore = (score) => {
 };
 
 export const calculateSeconds = (totalSeconds) => {
-    return totalSeconds % 60;
+    return Math.floor(totalSeconds / 1000) % 60;
 };
 
 export const calculateMinutes = (totalSeconds) => {
-    return Math.floor(totalSeconds / 60);
+    return Math.floor(totalSeconds / (60 * 1000));
+};
+
+export const calculateMilliSeconds = (minutes, seconds) => {
+    return minutes * 60 * 1000 + seconds * 1000
 };

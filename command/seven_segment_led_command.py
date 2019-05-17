@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 
-from gpio_adapter import SN74HC595NOutput
-from seven_segment_led import SevenSegmentLed
+from config import config
+from gpio.seven_segment_led import create_seven_segment_led
 
 
 def print_msg():
@@ -27,6 +27,6 @@ if __name__ == '__main__':  # Program starting from here
     print_msg()
     setup()
     try:
-        loop(SevenSegmentLed(SN74HC595NOutput()))
+        loop(create_seven_segment_led(config.get_scoreboard_config()))
     finally:
         destroy()

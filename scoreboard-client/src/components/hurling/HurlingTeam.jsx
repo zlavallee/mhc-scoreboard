@@ -3,7 +3,6 @@ import {Col, Row} from "reactstrap";
 import LargeNumberInput from "../shared/LargeNumberInput";
 import {calculateScore} from "../../lib/utils";
 import CenterHeader from "../shared/CenterHeader";
-import './HurlingTeam.scss'
 
 export default function HurlingTeam(props) {
     const goals = props.score.goals;

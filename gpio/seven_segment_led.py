@@ -1,44 +1,21 @@
 import itertools
 
-from gpio_adapter import SN74HC595NOutput
+from config import config
+from gpio.gpio_adapter import SN74HC595NOutput, create_output_from_config
 
-cathode_digit_dictionary = {
-    "_": 0x00,
-    "0": 0x3F,
-    "1": 0x06,
-    "2": 0x5B,
-    "3": 0x4F,
-    "4": 0x66,
-    "5": 0x6D,
-    "6": 0x7D,
-    "7": 0x07,
-    "8": 0x7F,
-    "9": 0x67,
-}
 
-anode_digit_dictionary = {
-    "_": 0xFF,
-    "0": 0xC0,
-    "1": 0xF9,
-    "2": 0xA4,
-    "3": 0xB0,
-    "4": 0x99,
-    "5": 0x92,
-    "6": 0x82,
-    "7": 0xF8,
-    "8": 0x80,
-    "9": 0x98,
-}
+def create_seven_segment_led(output_config):
+    return SevenSegmentLed(
+        output_device=create_output_from_config(output_config),
+        digit_dictionary=config.get_dictionary()
+    )
 
 
 class SevenSegmentLed:
 
-    def __init__(self, output_device: SN74HC595NOutput, digit_dictionary=None):
+    def __init__(self, output_device: SN74HC595NOutput, digit_dictionary):
         self.digit_dictionary = digit_dictionary
         self.output_device = output_device
-
-        if digit_dictionary is None:
-            self.digit_dictionary = cathode_digit_dictionary
 
     def clear(self, digits=1, clear_value="_"):
         for _ in itertools.repeat(digits):
@@ -71,4 +48,3 @@ class SevenSegmentLed:
                 'Dictionary does not contain definition character value: {}'.format(value))
 
         return hex_value
-
