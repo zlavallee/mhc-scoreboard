@@ -40,3 +40,17 @@ $theme-colors: (
   @extend .bg-light;
   padding: 15px;
 }
+
+.large-input {
+  font-size: 6rem;
+  text-align: center;
+  input {
+    border-radius: 0 !important;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

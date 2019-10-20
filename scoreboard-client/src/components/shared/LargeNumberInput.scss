@@ -1,39 +1,24 @@
 .vertical-center {
-    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
-    min-height: 100vh; /* These two lines are counted as one :-)       */
-
-    display: flex;
-    align-items: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
+
 .large-input-button {
-    height: 3rem;
-    width: 100%;
-    border-radius: 0 !important;
+  height: 3rem;
+  width: 100%;
+  border-radius: 0 !important;
 }
 
 .large-number-wrapper {
-    padding: 0.25rem;
-}
-
-.large-input {
-    font-size: 6rem;
-    text-align: center;
-    input {
-        border-radius: 0 !important;
-    }
-
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+  padding: 0.25rem;
 }
 
 .large-input-readonly {
-    font-size: 6rem;
-    text-align: center;
+  font-size: 6rem;
+  text-align: center;
 }
 
 .hidden {
-    visibility: hidden;
+  visibility: hidden;
 }

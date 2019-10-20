@@ -19,7 +19,7 @@ export default function HurlingScoreboard() {
 
     const initialTimer = {
         value: 0,
-        stopped: true
+        running: true
     };
 
     const [homeScore, updateHomeScore] = useState(emptyScore);

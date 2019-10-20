@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from calculated_timer import NanoSecondTimer
+from scoreboard.calculated_timer import NanoSecondTimer
 
 import time
 

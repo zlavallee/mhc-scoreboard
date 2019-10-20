@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from hurling import Game, Score
+from scoreboard.hurling import Game, Score
 
 
 class TestGame(TestCase):

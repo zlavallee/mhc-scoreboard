@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 
-from gpio_adapter import SN74HC595NOutput
-from scoreboard_timer import ScoreboardTimer
+from gpio import scoreboard_timer
 
 
 def print_msg():
@@ -17,11 +16,11 @@ def destroy():
     GPIO.cleanup()
 
 
-def loop(scoreboard_timer):
+def loop(timer):
     commands = {
-        'start': lambda _: scoreboard_timer.start(),
-        'stop': lambda _: scoreboard_timer.stop(),
-        'reset': lambda _: scoreboard_timer.reset()
+        'start': lambda _: timer.start(),
+        'stop': lambda _: timer.stop(),
+        'reset': lambda _: timer.reset()
     }
 
     while True:
@@ -40,8 +39,6 @@ if __name__ == '__main__':
     print_msg()
     setup()
     try:
-        timer = ScoreboardTimer(SN74HC595NOutput())
-        timer.start()
-        loop(timer)
+        loop(scoreboard_timer.create_scoreboard_timer())
     finally:
         destroy()

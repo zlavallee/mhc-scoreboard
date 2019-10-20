@@ -1,4 +1,4 @@
-from timer_utils import to_seconds, get_seconds, get_minutes, get_time_ns
+from util.timer_utils import to_seconds, get_seconds, get_minutes, get_time_ns
 
 
 class NanoSecondTimer:
