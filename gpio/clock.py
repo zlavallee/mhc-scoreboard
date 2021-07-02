@@ -19,7 +19,7 @@ class AbstractBaseClock(abc.ABC):
     def __init__(self, default_interval):
         self._default_interval = default_interval
 
-    def tick(self, interval):
+    def tick(self, interval=None):
         if interval is None:
             self.tick_internal(self._default_interval)
         else:
