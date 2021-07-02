@@ -29,7 +29,7 @@ SCOREBOARD_CONFIG = {
         'serial_data_input': 11,
         'memory_clock': 12,
         'serial_clock': 13,
-        'clock_speed': 0.0001
+        'clock_speed': 0.001
     }
 }
 

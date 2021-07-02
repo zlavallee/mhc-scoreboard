@@ -24,11 +24,14 @@ class SevenSegmentLed:
         self.output_device.store_data()
 
     def set_values(self, values):
+        print(f'Setting values: {values}')
         hex_data = self.convert_to_hex(values)
-
+        print(f'Hex: {hex_data}')
         for data in hex_data:
+            print(f'Sending byte: {data}')
             self.output_device.send_byte(data)
 
+        print('Storing date...')
         self.output_device.store_data()
 
     def convert_to_hex(self, values):
