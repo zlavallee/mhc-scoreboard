@@ -1,6 +1,8 @@
 import time
 import RPi.GPIO as GPIO
 
+from gpio.clock import create_sleep_clock
+
 
 def create_output_from_config(config):
     return SN74HC595NOutput(
@@ -17,6 +19,7 @@ class SN74HC595NOutput:
         self.RCLK = memory_clock
         self.SRCLK = serial_clock
         self.clock_speed = clock_speed
+        self.clock = create_sleep_clock(self.clock_speed)
 
         GPIO.setup(self.SDI, GPIO.OUT)
         GPIO.setup(self.RCLK, GPIO.OUT)
@@ -38,4 +41,4 @@ class SN74HC595NOutput:
         GPIO.output(self.RCLK, GPIO.LOW)
 
     def __tick(self):
-        time.sleep(self.clock_speed)
+        self.clock.tick()

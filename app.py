@@ -1,4 +1,5 @@
 import os
+import RPi.GPIO as GPIO
 
 import flask
 from flask import Flask, send_from_directory, request
@@ -9,6 +10,7 @@ client_name = "scoreboard-client"
 
 app = Flask(__name__,
             static_folder="./{}/build/".format(client_name))
+GPIO.setmode(GPIO.BOARD)
 scoreboard = create_scoreboard()
 
 
@@ -58,5 +60,17 @@ def serve(path):
         return send_from_directory('{}/build'.format(client_name), 'index.html')
 
 
+def setup():
+    print('Setting mode')
+    GPIO.setmode(GPIO.BOARD)
+
+
+def destroy():
+    GPIO.cleanup()
+
+
 if __name__ == '__main__':
-    app.run()
+    try:
+        app.run()
+    finally:
+        destroy()
