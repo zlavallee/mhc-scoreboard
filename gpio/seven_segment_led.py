@@ -1,4 +1,5 @@
 import itertools
+import logging
 
 from config import config
 from gpio.gpio_adapter import SN74HC595NOutput, create_output_from_config
@@ -24,14 +25,14 @@ class SevenSegmentLed:
         self.output_device.store_data()
 
     def set_values(self, values):
-        print('Setting values: {}'.format(values))
+        logging.info('Setting values: {}'.format(values))
         hex_data = self.convert_to_hex(values)
-        print('Hex: {}'.format(hex_data))
+        logging.info('Hex: {}'.format(hex_data))
         for data in hex_data:
-            print('Sending byte: {}'.format(data))
+            logging.info('Sending byte: {}'.format(data))
             self.output_device.send_byte(data)
 
-        print('Storing date...')
+        logging.info('Storing date...')
         self.output_device.store_data()
 
     def convert_to_hex(self, values):

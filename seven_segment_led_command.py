@@ -1,3 +1,5 @@
+import logging
+
 import RPi.GPIO as GPIO
 
 from config import config
@@ -11,6 +13,7 @@ def print_msg():
 
 def setup():
     GPIO.setmode(GPIO.BOARD)
+    logging.getLogger().setLevel(logging.INFO)
 
 
 def destroy():
