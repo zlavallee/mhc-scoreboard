@@ -1,4 +1,5 @@
 import abc
+import logging
 import time
 
 
@@ -20,10 +21,13 @@ class AbstractBaseClock(abc.ABC):
         self._default_interval = default_interval
 
     def tick(self, interval=None):
-        if interval is None:
-            self.tick_internal(self._default_interval)
-        else:
-            self.tick_internal(interval)
+        temp_interval = interval
+
+        if temp_interval is None:
+            temp_interval = self._default_interval
+
+        logging.info('Tick for {} seconds', temp_interval)
+        self.tick_internal(temp_interval)
 
     @abc.abstractmethod
     def tick_internal(self, interval):
@@ -33,4 +37,5 @@ class AbstractBaseClock(abc.ABC):
 class SleepClock(AbstractBaseClock):
 
     def tick_internal(self, interval):
+        logging.info('Sleeping for {} seconds'.format(interval))
         time.sleep(interval)
