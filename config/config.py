@@ -18,11 +18,11 @@ SCOREBOARD_CONFIG = {
         'quarter'
     ],
     'timer': {
-        'serial_data_input': 11,
-        'memory_clock': 12,
-        'serial_clock': 13,
-        'clock_speed': 0.0001,
-        'update_interval': .001
+        'serial_data_input': 15,
+        'memory_clock': 16,
+        'serial_clock': 18,
+        'clock_speed': 0.001,
+        'update_interval': .01
 
     },
     'scoreboard': {
