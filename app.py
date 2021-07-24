@@ -10,7 +10,6 @@ client_name = "scoreboard-client"
 
 app = Flask(__name__,
             static_folder="./{}/build/".format(client_name))
-GPIO.setmode(GPIO.BOARD)
 scoreboard = create_scoreboard()
 
 
@@ -71,6 +70,7 @@ def destroy():
 
 if __name__ == '__main__':
     try:
+        setup()
         app.run()
     finally:
         destroy()

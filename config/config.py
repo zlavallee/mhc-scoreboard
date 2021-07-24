@@ -7,15 +7,15 @@ class LedType(Enum):
 
 
 SCOREBOARD_CONFIG = {
-    'led_type': LedType.ANODE,
+    'led_type': LedType.CATHODE,
     'layout': [
-        'quarter',
-        'home.goals',
-        'home.points',
-        'home.total',
         'guest.goals',
+        'home.goals',
         'guest.points',
+        'home.points',
         'guest.total',
+        'home.total',
+        'quarter'
     ],
     'timer': {
         'serial_data_input': 11,
