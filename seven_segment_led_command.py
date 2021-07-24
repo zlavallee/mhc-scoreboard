@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 
 from config import config
 from gpio.seven_segment_led import create_seven_segment_led
+from setup import setup_logging
 
 
 def print_msg():
@@ -13,11 +14,7 @@ def print_msg():
 
 def setup():
     GPIO.setmode(GPIO.BOARD)
-    logging.getLogger().setLevel(logging.INFO)
-    logging.basicConfig(
-        format='%(asctime)s %(levelname)-8s %(message)s',
-        level=logging.INFO,
-        datefmt='%Y-%m-%d %H:%M:%S')
+    setup_logging(logging.INFO)
 
 
 def destroy():

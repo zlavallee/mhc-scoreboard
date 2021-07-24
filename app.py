@@ -5,6 +5,7 @@ import flask
 from flask import Flask, send_from_directory, request
 
 from scoreboard.scoreboard import create_scoreboard
+from setup import setup_logging
 
 client_name = "scoreboard-client"
 
@@ -61,6 +62,7 @@ def serve(path):
 
 def setup():
     print('Setting mode')
+    setup_logging()
     GPIO.setmode(GPIO.BOARD)
 
 
