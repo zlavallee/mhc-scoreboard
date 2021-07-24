@@ -9,6 +9,7 @@ def create_scoreboard():
     )
 
 
+# TODO: Implement this.
 class Scoreboard:
     def __init__(self, scoreboard_display, scoreboard_timer):
         self.scoreboard_display = scoreboard_display
@@ -16,23 +17,26 @@ class Scoreboard:
 
     @property
     def scoreboard(self):
-        return 0
+        return self.scoreboard_display.get_scoreboard()
 
     @scoreboard.setter
     def scoreboard(self, scoreboard):
-        print("Not Implemented")
+        self.scoreboard.update_scoreboard(scoreboard)
 
     @property
     def timer(self):
-        return 0
+        return self.scoreboard_timer.get_timer()
 
     @timer.setter
     def timer(self, timer):
-        print("Not Implemented")
+        self.scoreboard_timer.set(timer)
 
     def start_timer(self):
-        raise NotImplementedError
+        self.scoreboard_timer.start()
 
     def stop_timer(self):
-        raise NotImplementedError
+        self.scoreboard_timer.stop()
+
+    def reset_timer(self):
+        self.scoreboard_timer.reset()
 

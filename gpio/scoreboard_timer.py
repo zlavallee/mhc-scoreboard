@@ -1,3 +1,4 @@
+import logging
 from threading import Thread, Event
 
 from config import config
@@ -43,23 +44,28 @@ class ScoreboardTimer:
         self.timer_thread.join(self.update_interval * 10)
 
     def start(self):
-        print('Starting...')
+        logging.info('Starting scoreboard timer.')
         self.timer.start()
 
     def stop(self):
-        print('Stopping...')
+        logging.info('Stopping scoreboard timer.')
         self.timer.stop()
 
     def set(self, seconds=0):
-        print('Setting time: {}'.format(seconds))
+        logging.info('Setting scoreboard timer to: {}.'.format(seconds))
         self.timer.set(from_seconds(seconds))
+
+    def get_timer(self):
+        # TODO: Implement
+        pass
 
     def reset(self):
         self.set()
 
     def _update_timer(self):
         (minutes, seconds) = self._get_minutes_seconds_string()
-        print('Updating timer to: {}:{}'.format(minutes, seconds))
+        logging.debug('Updating scoreboard timer to: {}:{}'.format(minutes, seconds))
+
         self.led_output.set_values(minutes.join(seconds))
 
     def _get_minutes_seconds_string(self):

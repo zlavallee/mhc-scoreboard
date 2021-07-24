@@ -30,9 +30,9 @@ class SN74HC595NOutput:
         GPIO.output(self.SRCLK, GPIO.LOW)
 
     def send_byte(self, data):
-        logging.info('Sending data: {}'.format(data))
+        logging.debug('Sending data: {}'.format(data))
         for bit in range(0, 8):
-            logging.info('Sending bit: {}'.format(0x80 & (data << bit)))
+            logging.debug('Sending bit: {}'.format(0x80 & (data << bit)))
             GPIO.output(self.SDI, 0x80 & (data << bit))
             GPIO.output(self.SRCLK, GPIO.HIGH)
             self.__tick()
