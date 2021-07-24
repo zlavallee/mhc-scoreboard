@@ -21,6 +21,26 @@ class ScoreboardApi {
         return axios.post(constants.api.scoreboard, scoreboard, this.config);
     };
 
+    getTimer = async () => {
+        console.log("Getting scoreboard timer state from backend")
+        return axios.get(constants.api.timer, this.config)
+    }
+
+    setTimer = async (timer) => {
+        console.log("Setting scoreboard timer state from backend")
+        return axios.post(constants.api.timer, timer, this.config)
+    }
+
+    startTimer = async () => {
+        console.log("Starting scoreboard timer from backend")
+        return axios.post(constants.api.timerStart)
+    }
+
+    stopTimer = async () => {
+        console.log("Stopping scoreboard timer from backend")
+        return axios.post(constants.api.timerStop)
+    }
+
     saveGame = (homeTeam, visitorTeam, scoreboard) => {
 
     };

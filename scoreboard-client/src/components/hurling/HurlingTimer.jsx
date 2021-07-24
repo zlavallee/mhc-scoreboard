@@ -4,8 +4,10 @@ import {Col, Row} from "reactstrap";
 import {calculateMilliSeconds, calculateMinutes, calculateSeconds} from "../../lib/utils";
 import Button from "reactstrap/es/Button";
 import LargeNumberInput from "../shared/LargeNumberInput";
+import api from "../../lib/api";
 
-export default function HurlingTimer(props) {
+// TODO: Implement timer api
+export default function HurlingTimer() {
 
     const intervalIncrement = 100;
     const intervalRef = useRef();
@@ -17,6 +19,10 @@ export default function HurlingTimer(props) {
     });
     const [edit, updateEdit] = useState(false);
 
+    useEffect(async () => {
+        const timerState = await api.getTimer()
+
+    })
 
     const onClickEdit = () => {
         updateEdit(true);

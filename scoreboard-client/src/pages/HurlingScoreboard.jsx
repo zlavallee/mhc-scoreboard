@@ -17,19 +17,14 @@ export default function HurlingScoreboard() {
         points: 0
     };
 
-    const initialTimer = {
-        value: 0,
-        running: true
-    };
 
     const [homeScore, updateHomeScore] = useState(emptyScore);
     const [visitorScore, updateVisitorScore] = useState(emptyScore);
     const [quarter, updateQuarter] = useState(0);
-    const [timer, updateTimer] = useState(initialTimer);
     const [alert, setAlert] = useState(null);
 
-    useEffect(() => {
-        fetchState()
+    useEffect(async () => {
+        await fetchState()
     }, []);
 
     const fetchState = async () => {
@@ -42,9 +37,10 @@ export default function HurlingScoreboard() {
         updateVisitorScore(result.visitor);
     };
 
-    const onHomeScoreChange = (score) => {
+    const onHomeScoreChange = async (score) => {
         console.log('Home Score Changed', score);
-        updateScoreboard({
+        updateHomeScore(score);
+        await updateScoreboard({
             home: {
                 ...createFullScore(score)
             },
@@ -53,13 +49,11 @@ export default function HurlingScoreboard() {
             },
             quarter: quarter
         });
-        updateHomeScore(score);
-
     };
 
-    const onVisitorScoreChange = (score) => {
+    const onVisitorScoreChange = async (score) => {
         updateVisitorScore(score);
-        updateScoreboard({
+        await updateScoreboard({
             home: {
                 ...createFullScore(homeScore)
             },
@@ -70,9 +64,9 @@ export default function HurlingScoreboard() {
         });
     };
 
-    const onQuarterChange = (updatedQuarter) => {
+    const onQuarterChange = async (updatedQuarter) => {
         updateQuarter(updatedQuarter);
-        updateScoreboard({
+        await updateScoreboard({
             home: {
                 ...createFullScore(homeScore)
             },
@@ -110,7 +104,7 @@ export default function HurlingScoreboard() {
             </Row>}
             <Row>
                 <Col xs="12" md="6" lg="8" xl="8">
-                    <HurlingTimer timer={timer}/>
+                    <HurlingTimer/>
                 </Col>
                 <Col xs="12" md="6" lg="4" xl="4" className="mt-3 mb-3 col-centered">
                     <Quarter onQuarterChange={onQuarterChange} quarter={quarter}/>
