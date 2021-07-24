@@ -1,10 +1,7 @@
 import tempfile
 from typing import List
 from config import config
-
 from gpio.seven_segment_led import SevenSegmentLed, create_seven_segment_led
-import pickle
-
 from util import scoreboard_utils
 
 
@@ -38,12 +35,10 @@ class ScoreboardDisplay:
         self.led = led
         self.layout = layout
         self.scoreboard_state = None
-        self.temp_file = 'scoreboard_state.pickle'
 
     def update_scoreboard(self, scoreboard):
         self.scoreboard_state = scoreboard_utils.pad_score(scoreboard)
         self.led.set_values(self._create_layout_string())
-        self._write_scoreboard_state()
 
     def get_scoreboard(self):
         if self.scoreboard_state is None:
@@ -65,16 +60,4 @@ class ScoreboardDisplay:
         return ordered_string
 
     def _read_scoreboard_state(self):
-        try:
-            with open(self._state_filename()) as handle:
-                self.scoreboard_state = pickle.load(handle)
-        except FileNotFoundError:
-            self.scoreboard_state = default_scoreboard_state
-            self._write_scoreboard_state()
-
-    def _write_scoreboard_state(self):
-        with open(self._state_filename(), 'wb') as handle:
-            pickle.dump(self.scoreboard_state, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-    def _state_filename(self):
-        return '{}/{}'.format(tempfile.gettempdir(), self.temp_file)
+        self.scoreboard_state = default_scoreboard_state
