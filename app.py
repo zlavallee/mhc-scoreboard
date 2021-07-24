@@ -11,6 +11,8 @@ client_name = "scoreboard-client"
 
 app = Flask(__name__,
             static_folder="./{}/build/".format(client_name))
+
+GPIO.setmode(GPIO.BOARD)
 scoreboard = create_scoreboard()
 
 
@@ -63,7 +65,6 @@ def serve(path):
 def setup():
     print('Setting mode')
     setup_logging()
-    GPIO.setmode(GPIO.BOARD)
 
 
 def destroy():
