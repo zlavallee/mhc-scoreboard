@@ -23,8 +23,8 @@ export default function HurlingScoreboard() {
     const [quarter, updateQuarter] = useState(0);
     const [alert, setAlert] = useState(null);
 
-    useEffect(async () => {
-        await fetchState()
+    useEffect(() => {
+        fetchState()
     }, []);
 
     const fetchState = async () => {
@@ -37,10 +37,10 @@ export default function HurlingScoreboard() {
         updateVisitorScore(result.visitor);
     };
 
-    const onHomeScoreChange = async (score) => {
+    const onHomeScoreChange = (score) => {
         console.log('Home Score Changed', score);
         updateHomeScore(score);
-        await updateScoreboard({
+        updateScoreboard({
             home: {
                 ...createFullScore(score)
             },
@@ -51,9 +51,9 @@ export default function HurlingScoreboard() {
         });
     };
 
-    const onVisitorScoreChange = async (score) => {
+    const onVisitorScoreChange = (score) => {
         updateVisitorScore(score);
-        await updateScoreboard({
+        updateScoreboard({
             home: {
                 ...createFullScore(homeScore)
             },
@@ -64,9 +64,9 @@ export default function HurlingScoreboard() {
         });
     };
 
-    const onQuarterChange = async (updatedQuarter) => {
+    const onQuarterChange = (updatedQuarter) => {
         updateQuarter(updatedQuarter);
-        await updateScoreboard({
+        updateScoreboard({
             home: {
                 ...createFullScore(homeScore)
             },
