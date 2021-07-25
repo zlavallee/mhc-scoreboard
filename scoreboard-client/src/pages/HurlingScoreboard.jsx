@@ -17,7 +17,6 @@ export default function HurlingScoreboard() {
         points: 0
     };
 
-
     const [homeScore, updateHomeScore] = useState(emptyScore);
     const [visitorScore, updateVisitorScore] = useState(emptyScore);
     const [quarter, updateQuarter] = useState(0);

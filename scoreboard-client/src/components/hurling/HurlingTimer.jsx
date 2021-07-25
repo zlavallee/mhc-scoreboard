@@ -20,7 +20,6 @@ export default function HurlingTimer() {
     const [edit, updateEdit] = useState(false);
 
     useEffect(async () => {
-        const timerState = await api.getTimer()
 
     })
 
