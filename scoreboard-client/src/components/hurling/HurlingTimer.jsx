@@ -4,7 +4,6 @@ import {Col, Row} from "reactstrap";
 import {calculateMilliSeconds, calculateMinutes, calculateSeconds} from "../../lib/utils";
 import Button from "reactstrap/es/Button";
 import LargeNumberInput from "../shared/LargeNumberInput";
-import api from "../../lib/api";
 
 // TODO: Implement timer api
 export default function HurlingTimer() {
@@ -19,7 +18,7 @@ export default function HurlingTimer() {
     });
     const [edit, updateEdit] = useState(false);
 
-    useEffect(async () => {
+    useEffect(() => {
 
     })
 

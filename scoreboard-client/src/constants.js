@@ -1,10 +1,11 @@
+const apiBase = '/api/v1.0'
 const constants = {
     mhcLogo: './mhc-logo.png',
     api: {
-        scoreboard: "/api/v1.0/scoreboard",
-        timer: "/api/v1.0/timer",
-        timerStart: "/api/v1.0/timer/start",
-        timerStop: "/api/v1.0/timer/stop"
+        scoreboard: `${apiBase}/scoreboard`,
+        timer: `${apiBase}/timer`,
+        timerStart: `${apiBase}/timer/start`,
+        timerStop: `${apiBase}/timer/stop`
     }
 };
 
