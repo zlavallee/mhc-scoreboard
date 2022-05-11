@@ -1,3 +1,4 @@
+import logging
 import os
 
 import flask
@@ -17,12 +18,19 @@ scoreboard = create_scoreboard()
 
 @app.route('/api/v1.0/scoreboard', methods=['GET'])
 def get_scoreboard():
-    return flask.jsonify(scoreboard.scoreboard)
+    scoreboard_state = scoreboard.scoreboard
+
+    logging.debug("Getting scoreboard: {}".format(scoreboard_state))
+
+    return flask.jsonify(scoreboard_state)
 
 
 @app.route('/api/v1.0/scoreboard', methods=['POST'])
 def post_scoreboard():
     scoreboard_json = request.get_json()
+
+    logging.debug("Updating scoreboard: {}", scoreboard_json)
+
     scoreboard.scoreboard = scoreboard_json
 
     return flask.jsonify(scoreboard.scoreboard), 200
@@ -30,24 +38,33 @@ def post_scoreboard():
 
 @app.route('/api/v1.0/timer', methods=['GET'])
 def get_timer():
-    return flask.jsonify(scoreboard.timer), 200
+    timer_state = scoreboard.timer
+
+    logging.debug("Getting timer: {}".format(timer_state))
+
+    return flask.jsonify(timer_state), 200
 
 
 @app.route('/api/v1.0/timer', methods=['POST'])
 def set_timer():
     timer_json = request.get_json()
+
+    logging.debug("Updating timer: {}", timer_json)
+
     scoreboard.timer = timer_json
     return flask.jsonify(scoreboard.timer), 200
 
 
 @app.route('/api/v1.0/timer/start', methods=['POST'])
 def start_timer():
+    logging.debug("Starting timer.")
     scoreboard.start_timer()
     return 200
 
 
 @app.route('/api/v1.0/timer/stop', methods=['POST'])
 def stop_timer():
+    logging.debug("Stopping timer.")
     scoreboard.stop_timer()
     return 200
 
@@ -55,6 +72,8 @@ def stop_timer():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
+    logging.debug("Serving static path: {}".format(path))
+
     if path != "" and os.path.exists("{}/build/".format(client_name) + path):
         return send_from_directory('{}/build'.format(client_name), path)
     else:
@@ -62,7 +81,6 @@ def serve(path):
 
 
 def setup():
-    print('Setting mode')
     setup_logging()
 
 
