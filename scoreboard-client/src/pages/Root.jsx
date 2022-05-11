@@ -29,10 +29,7 @@ export default class Root extends React.Component {
                 <TopNav/>
                 <Container fluid>
                     <Switch>
-                        <Redirect exact from="/" to="/hurling"/>
-                        <Route path="/hurling" component={HurlingScoreboard}/>
-                        <Route path="/games" component={Games}/>
-                        <Route path="/scoreboard" component={BasicScoreboard}/>
+                        <Route path="/" component={HurlingScoreboard}/>
                         <Route component={PageNotFound}/>
                     </Switch>
                 </Container>

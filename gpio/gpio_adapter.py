@@ -1,20 +1,12 @@
 import logging
-import time
+
 import RPi.GPIO as GPIO
 
 from gpio.clock import create_sleep_clock
+from gpio.core import ShiftRegister
 
 
-def create_output_from_config(config):
-    return SN74HC595NOutput(
-        clock_speed=config['clock_speed'],
-        serial_data_input=config['serial_data_input'],
-        memory_clock=config['memory_clock'],
-        serial_clock=config['serial_clock']
-    )
-
-
-class SN74HC595NOutput:
+class SN74HC595NOutput(ShiftRegister):
     def __init__(self, clock_speed=0.001, serial_data_input=11, memory_clock=12, serial_clock=13):
         self.SDI = serial_data_input
         self.RCLK = memory_clock

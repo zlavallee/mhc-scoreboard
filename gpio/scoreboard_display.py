@@ -1,5 +1,5 @@
-import tempfile
 from typing import List
+
 from config import config
 from gpio.seven_segment_led import SevenSegmentLed, create_seven_segment_led
 from util import scoreboard_utils

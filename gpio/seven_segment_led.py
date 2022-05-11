@@ -2,7 +2,8 @@ import itertools
 import logging
 
 from config import config
-from gpio.gpio_adapter import SN74HC595NOutput, create_output_from_config
+from gpio.adapter_factory import create_output_from_config
+from gpio.core import ShiftRegister
 
 
 def create_seven_segment_led(output_config):
@@ -14,7 +15,7 @@ def create_seven_segment_led(output_config):
 
 class SevenSegmentLed:
 
-    def __init__(self, output_device: SN74HC595NOutput, digit_dictionary):
+    def __init__(self, output_device: ShiftRegister, digit_dictionary):
         self.digit_dictionary = digit_dictionary
         self.output_device = output_device
 
