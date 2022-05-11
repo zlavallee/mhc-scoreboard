@@ -56,8 +56,11 @@ class ScoreboardTimer:
         self.timer.set(from_seconds(seconds))
 
     def get_timer(self):
-        # TODO: Implement
-        pass
+        return {
+            "running": self.timer.running,
+            "start_time": self.timer.start_time,
+            "offset": self.timer.offset
+        }
 
     def reset(self):
         self.set()
@@ -74,7 +77,7 @@ class ScoreboardTimer:
     def _get_minutes_seconds_string(self):
         (minutes, seconds) = self.timer.get_minutes_seconds()
 
-        return to_padded_string(minutes, padding_value='_', digits=2), to_padded_string(minutes, digits=2)
+        return to_padded_string(minutes, digits=2), to_padded_string(seconds, digits=2)
 
     def _create_timer_thread(self):
         return Thread(target=update_timer, args=(self.update_interval, self.stop_event, self.timer, self.led_output),

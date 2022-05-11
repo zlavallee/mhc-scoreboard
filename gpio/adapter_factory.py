@@ -5,6 +5,8 @@ def create_output_from_config(config) -> ShiftRegister:
     try:
         import RPi.GPIO as GPIO
     except ImportError:
+        return StubShiftRegister()
+    else:
         from gpio.gpio_adapter import SN74HC595NOutput
 
         return SN74HC595NOutput(
@@ -13,6 +15,3 @@ def create_output_from_config(config) -> ShiftRegister:
             memory_clock=config['memory_clock'],
             serial_clock=config['serial_clock']
         )
-
-    else:
-        return StubShiftRegister()

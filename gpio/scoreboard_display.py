@@ -37,7 +37,7 @@ class ScoreboardDisplay:
         self.scoreboard_state = None
 
     def update_scoreboard(self, scoreboard):
-        self.scoreboard_state = scoreboard_utils.pad_score(scoreboard)
+        self.scoreboard_state = scoreboard_utils.pad_scoreboard_state(scoreboard)
         self.led.set_values(self._create_layout_string())
 
     def get_scoreboard(self):

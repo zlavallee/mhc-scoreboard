@@ -9,11 +9,11 @@ class LedType(Enum):
 SCOREBOARD_CONFIG = {
     'led_type': LedType.CATHODE,
     'layout': [
-        'guest.goals',
+        'visitor.goals',
         'home.goals',
-        'guest.points',
+        'visitor.points',
         'home.points',
-        'guest.total',
+        'visitor.total',
         'home.total',
         'quarter'
     ],

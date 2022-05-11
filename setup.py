@@ -13,7 +13,7 @@ def destroy():
     try:
         import RPi.GPIO as GPIO
     except ImportError:
-        raise NotImplementedError("You need the bandana package to wear hats")
+        pass
     else:
         GPIO.cleanup()
 
@@ -22,6 +22,6 @@ def initialize():
     try:
         import RPi.GPIO as GPIO
     except ImportError:
-        raise NotImplementedError("You need the bandana package to wear hats")
+        pass
     else:
         GPIO.setmode(GPIO.BOARD)

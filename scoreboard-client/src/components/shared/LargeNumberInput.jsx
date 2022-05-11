@@ -5,12 +5,16 @@ import CenterHeader from "./CenterHeader";
 
 export default function LargeNumberInput(props) {
 
+    const getCount = () => {
+      return parseInt(props.count)
+    }
+    
     const incrementCount = () => {
-        setCount(props.count + 1);
+        setCount(getCount() + 1);
     };
 
     const decrementCount = () => {
-        setCount(props.count - 1);
+        setCount(getCount() - 1);
     };
 
     const setCount = (count) => {
@@ -33,7 +37,7 @@ export default function LargeNumberInput(props) {
                 type="number"
                 name="number"
                 placeholder="number placeholder"
-                value={props.count}
+                value={getCount()}
                 readOnly
             />
             <FormButton onClick={decrementCount} edit={props.edit} label="-" color="dark"/>
