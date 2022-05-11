@@ -69,6 +69,7 @@ def setup():
 if __name__ == '__main__':
     try:
         setup()
+        scoreboard.run_test_sequence()
         app.run(host='0.0.0.0')
     finally:
         destroy()

@@ -1,3 +1,6 @@
+import logging
+import time
+
 from gpio.scoreboard_display import create_scoreboard_display
 from gpio.scoreboard_timer import create_scoreboard_timer
 
@@ -40,3 +43,34 @@ class Scoreboard:
     def reset_timer(self):
         self.scoreboard_timer.reset()
 
+    def run_test_sequence(self):
+        logging.info('Running scoreboard diagnostic.')
+        for _ in range(3):
+            self._write_test_values()
+            time.sleep(1)
+            self._clear_test_values()
+            time.sleep(1)
+
+    def _write_test_values(self):
+        self.scoreboard.update_scoreboard(_create_scoreboard_dict_with("88"))
+        self.scoreboard_timer.set_values("8888")
+
+    def _clear_test_values(self):
+        self.scoreboard.update_scoreboard(_create_scoreboard_dict_with("__"))
+        self.scoreboard_timer.set_values("____")
+
+
+def _create_scoreboard_dict_with(value):
+    return {
+        "guest": {
+            "points": value,
+            "goals": value,
+            "total": value
+        },
+        "home": {
+            "points": value,
+            "goals": value,
+            "total": value
+        },
+        "quarter": value
+    }
