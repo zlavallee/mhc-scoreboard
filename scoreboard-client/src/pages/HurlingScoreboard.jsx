@@ -9,6 +9,7 @@ import {createFullScore} from "../lib/utils";
 import AppAlert from "../components/shared/AppAlert";
 import HurlingTimer from "../components/hurling/HurlingTimer";
 
+//TODO: Fix the string to int conversion
 export default function HurlingScoreboard() {
 
   const emptyScore = {
@@ -121,31 +122,4 @@ export default function HurlingScoreboard() {
         </Row>
       </div>
   )
-}
-
-class TeamScore {
-  constructor(scoreObject) {
-    this.points = parseInt(scoreObject.points)
-    this.goals = parseInt(scoreObject.goals)
-  }
-
-  getPoints() {
-    return this.points
-  }
-
-  getGoals() {
-    return this.goals
-  }
-
-  getTotal() {
-    return this.points + this.goals * 3
-  }
-
-  createScoreObject() {
-    return {
-      points: this.points.toString(),
-      goals: this.goals.toString(),
-      total: this.getTotal().toString()
-    }
-  }
 }

@@ -1,3 +1,39 @@
+export const mapScoreStringToInt = (score) => {
+  return transformScoreValues(score, (value) => {
+    if (value === null || value === undefined) {
+      return 0
+    }
+
+    return parseInt(value)
+  })
+}
+
+export const mapScoreIntToString = (score) => {
+  return transformScoreValues(score, (value) => {
+    if (value === null || value === undefined) {
+      return "_"
+    }
+
+    return value.toString()
+  })
+}
+
+export const transformScoreValues = (score, transform) => {
+  return {
+    home: {
+      points: transform(score.home.points),
+      goals: transform(score.home.goals),
+      total: transform(score.home.total)
+    },
+    visitor: {
+      points: transform(score.visitor.points),
+      goals: transform(score.visitor.goals),
+      total: transform(score.visitor.total)
+    },
+    quarter: transform(score.quarter)
+  }
+}
+
 export const calculateScore = (score) => {
   return score.goals * 3 + score.points
 };
@@ -30,6 +66,13 @@ export const nsToMillis = (ns) => {
 }
 
 export const getOrDefault = (value, defaultValue) => {
+  if (value === undefined || value === null) {
+    return defaultValue
+  }
+  return value
+}
+
+export const generateOrDefault = (value, defaultValue) => {
   if (value === undefined || value === null) {
     return defaultValue
   }

@@ -9,11 +9,11 @@ export default function HurlingTeam(props) {
     const points = props.score.points;
 
     const onGoalsChange = (updatedGoals) => {
-        onScoreChange({...props.score, goals: updatedGoals.toString()})
+        onScoreChange({...props.score, goals: updatedGoals})
     };
 
     const onPointsChange = (updatedPoints) => {
-        onScoreChange({...props.score, points: updatedPoints.toString()})
+        onScoreChange({...props.score, points: updatedPoints})
     };
 
     const onScoreChange = (score) => {

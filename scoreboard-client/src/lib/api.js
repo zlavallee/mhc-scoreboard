@@ -1,5 +1,9 @@
 import axios from 'axios';
 import constants from "../constants";
+import {
+  mapScoreIntToString,
+  mapScoreStringToInt
+} from "./utils";
 
 class ScoreboardApi {
   config = {
@@ -12,15 +16,16 @@ class ScoreboardApi {
     console.log("Getting scoreboard state from backend");
     const {data} = await axios.get(constants.api.scoreboard, this.config);
 
-    return data;
+    return mapScoreStringToInt(data)
   };
 
   setState = async (scoreboard) => {
     console.log('Setting scoreboard state: ', scoreboard);
 
-    const {data} = await axios.post(constants.api.scoreboard, scoreboard,
-        this.config);
-    return data
+    const {data} = await axios.post(constants.api.scoreboard,
+        mapScoreIntToString(scoreboard), this.config);
+
+    return mapScoreStringToInt(data)
   };
 
   getTimer = async () => {
@@ -46,7 +51,6 @@ class ScoreboardApi {
     const {data} = await axios.post(constants.api.timerStop)
     return data
   }
-
 }
 
 const scoreboard = new ScoreboardApi();
