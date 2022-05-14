@@ -70,7 +70,7 @@ class ScoreboardTimer:
 
     def _update_timer(self):
         (minutes, seconds) = self._get_minutes_seconds_string()
-        logging.debug('Updating scoreboard timer to: {}:{}'.format(minutes, seconds))
+        logging.info('Updating scoreboard timer to: {}:{}'.format(minutes, seconds))
 
         self.led_output.set_values(minutes.join(seconds))
 
