@@ -101,7 +101,7 @@ if __name__ == '__main__':
     try:
         setup()
         scoreboard.run_test_sequence()
-        scoreboard.reset()
+        scoreboard.initialize()
         app.run(host='0.0.0.0')
     finally:
         destroy()

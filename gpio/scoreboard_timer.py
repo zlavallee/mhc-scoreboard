@@ -38,13 +38,15 @@ class ScoreboardTimer:
         self.stop_event = Event()
         self.update_interval = update_interval
         self.timer_thread = self._create_timer_thread()
-        self.timer_thread.start()
 
     def __del__(self):
         if self.timer_thread.is_alive():
             self.stop_event.set()
 
         self.timer_thread.join(self.update_interval * 10)
+
+    def start_timer_thread(self):
+        self.timer_thread.start()
 
     def start(self):
         logging.info('Starting scoreboard timer.')

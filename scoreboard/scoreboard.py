@@ -18,6 +18,10 @@ class Scoreboard:
         self.scoreboard_display = scoreboard_display
         self.scoreboard_timer = scoreboard_timer
 
+    def initialize(self):
+        self.scoreboard_timer.start_timer_thread()
+        self.reset()
+
     def reset(self):
         self.scoreboard_display.update_scoreboard(_initial_scoreboard_state())
         self.scoreboard_timer.reset()
