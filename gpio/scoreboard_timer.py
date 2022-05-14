@@ -24,6 +24,9 @@ def get_minutes_seconds_string(timer):
 def update_timer(wait_time, stop_event: Event, timer: MinuteSecondTimer, output):
     while not stop_event.wait(wait_time):
         (minutes, seconds) = get_minutes_seconds_string(timer)
+
+        logging.info('Updating scoreboard timer to: {}:{}'.format(minutes, seconds))
+
         output.set_values(minutes.join(seconds))
 
 

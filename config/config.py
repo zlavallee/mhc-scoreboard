@@ -22,7 +22,7 @@ SCOREBOARD_CONFIG = {
         'memory_clock': 16,
         'serial_clock': 18,
         'clock_speed': 0.001,
-        'update_interval': .01
+        'update_interval': .1
 
     },
     'scoreboard': {
