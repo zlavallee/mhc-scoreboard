@@ -27,7 +27,7 @@ def update_timer(wait_time, stop_event: Event, timer: MinuteSecondTimer, output)
 
         logging.info('Updating scoreboard timer to: {}:{}'.format(minutes, seconds))
 
-        output.set_values(minutes.join(seconds))
+        output.set_values(minutes + seconds)
 
 
 class ScoreboardTimer:
@@ -72,13 +72,6 @@ class ScoreboardTimer:
 
     def set_values(self, values):
         self.led_output.set_values(values)
-
-    def _update_timer(self):
-        (minutes, seconds) = self._get_minutes_seconds_string()
-        logging.info('Updating scoreboard timer to: {}:{}'.format(minutes, seconds))
-        output = minutes.join(seconds)
-        logging.info('Sending values to led output: {}'.format(output))
-        self.led_output.set_values(output)
 
     def _get_minutes_seconds_string(self):
         (minutes, seconds) = self.timer.get_minutes_seconds()
