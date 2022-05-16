@@ -4,6 +4,7 @@ import TopNav from "../components/shared/TopNav";
 import {Route, Switch} from "react-router";
 import HurlingScoreboard from "./HurlingScoreboard";
 import PageNotFound from "./PageNotFound";
+import Help from "./Help";
 
 export default class Root extends React.Component {
     constructor(props) {
@@ -28,6 +29,7 @@ export default class Root extends React.Component {
                 <Container fluid>
                     <Switch>
                         <Route path="/" component={HurlingScoreboard}/>
+                        <Route path="/help" component={Help}/>
                         <Route component={PageNotFound}/>
                     </Switch>
                 </Container>

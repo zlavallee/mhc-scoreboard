@@ -7,9 +7,17 @@ class NanoSecondTimer:
         self.start_time = None
         self.offset = 0
 
+    def clear(self):
+        self.running = False
+        self.start_time = None
+        self.offset = None
+
     def start(self):
         if self.running:
             return
+
+        if self.offset is None:
+            self.offset = 0
 
         self.running = True
         self.start_time = get_time_ns()
@@ -48,7 +56,13 @@ class MinuteSecondTimer(NanoSecondTimer):
         return get_minutes(seconds), get_seconds(seconds)
 
     def get_seconds(self):
+        if self.get_time() is None:
+            return "__"
+
         return get_seconds(to_seconds(self.get_time()))
 
     def get_minutes(self):
+        if self.get_time() is None:
+            return "__"
+
         return get_minutes(to_seconds(self.get_time()))

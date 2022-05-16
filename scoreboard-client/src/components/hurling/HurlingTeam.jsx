@@ -25,10 +25,10 @@ export default function HurlingTeam(props) {
             <CenterHeader name={props.name}/>
             <Row>
                 <Col xs="6" lg="4">
-                    <LargeNumberInput label="Goals" count={goals} edit onCountChange={onGoalsChange}/>
+                    <LargeNumberInput label="Goals" count={goals} edit={props.edit} onCountChange={onGoalsChange}/>
                 </Col>
                 <Col xs="6" lg="4">
-                    <LargeNumberInput label="Points" count={points} edit onCountChange={onPointsChange}/>
+                    <LargeNumberInput label="Points" count={points} edit={props.edit} onCountChange={onPointsChange}/>
                 </Col>
                 <Col xs="12" lg="4">
                     <LargeNumberInput label="Total" count={calculateScore({points, goals})}/>

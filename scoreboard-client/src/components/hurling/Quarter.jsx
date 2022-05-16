@@ -11,7 +11,7 @@ export default function Quarter(props) {
     return (
         <div className="raised-box">
             <CenterHeader name="Quarter"/>
-            <LargeNumberInput count={props.quarter} onCountChange={onQuarterChange} edit/>
+            <LargeNumberInput count={props.quarter} onCountChange={onQuarterChange} edit={props.edit}/>
         </div>
     )
 }

@@ -9,6 +9,7 @@ import {
 import Button from "reactstrap/es/Button";
 import LargeNumberInput from "../shared/LargeNumberInput";
 import api from "../../lib/api";
+import "./HurlingTimer.scss"
 
 // TODO: Implement timer api
 export default function HurlingTimer() {
@@ -21,7 +22,6 @@ export default function HurlingTimer() {
     running: false,
     seconds: 0,
     minutes: 0,
-    initialized: false
   });
   const [edit, updateEdit] = useState(false);
   const [initialized, updateInitialized] = useState(false);
@@ -29,10 +29,9 @@ export default function HurlingTimer() {
   useEffect(() => {
     mounted.current = true;
 
-    if (timer.initialized) {
+    if (initialized) {
       return;
     }
-
     api.getTimer().then(timerState => {
       if (mounted.current) {
         updateTimerFromState(timerState)
@@ -147,38 +146,44 @@ export default function HurlingTimer() {
       <div className="raised-box">
         <CenterHeader name="Clock"/>
         <Row className="justify-content-center">
-          <Col xs="6" md="6" lg="4" xl="3">
-            {!edit && <LargeNumberInput label="Minutes" count={timer.minutes}/>}
-            {edit &&
-                <LargeNumberInput label="Minutes" count={timer.minutes} edit
-                                  onCountChange={onChangeMinutes}/>}
-          </Col>
-          <Col xs="6" md="6" lg="4" xl="3">
-            {!edit && <LargeNumberInput label="Seconds" count={timer.seconds}/>}
-            {edit &&
-                <LargeNumberInput label="Seconds" count={timer.seconds} edit
-                                  onCountChange={onChangeSeconds}/>}
-
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col xs="3" lg="2">
-            {!timer.running && <Button color="success" onClick={onClickStart}
+          <Col xs="2" className="timer-buttons">
+            {!timer.running && <Button color="success"
+                                       onClick={onClickStart}
                                        disabled={edit}>Start</Button>}
             {timer.running && <Button color="warning"
                                       onClick={onClickStop}>Stop</Button>}
 
-          </Col>
-          <Col xs="3" lg="2">
             <Button color="danger" disabled={timer.running}
                     onClick={onClickReset}>Reset</Button>
-          </Col>
-          <Col xs="3" lg="2">
             {!edit && <Button color="info" onClick={onClickEdit}
                               disabled={timer.running}>Edit</Button>}
-            {edit && <Button color="info" onClick={onClickSave}>Save</Button>}
+            {edit && <Button color="info"
+                             onClick={onClickSave}>Save</Button>}
+
+
+          </Col>
+          <Col>
+            <Row className="justify-content-center">
+              <Col xs="6" md="6" lg="4" xl="3">
+                {!edit && <LargeNumberInput label="Minutes"
+                                            count={timer.minutes}/>}
+                {edit &&
+                    <LargeNumberInput label="Minutes" count={timer.minutes} edit
+                                      onCountChange={onChangeMinutes}/>}
+              </Col>
+              <Col xs="6" md="6" lg="4" xl="3">
+                {!edit && <LargeNumberInput label="Seconds"
+                                            count={timer.seconds}/>}
+                {edit &&
+                    <LargeNumberInput label="Seconds" count={timer.seconds} edit
+                                      onCountChange={onChangeSeconds}/>}
+
+              </Col>
+            </Row>
           </Col>
         </Row>
+
+
       </div>
   )
 }

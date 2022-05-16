@@ -12,19 +12,30 @@ def create_scoreboard():
     )
 
 
+initialized = 'INITIALIZED'
+cleared = 'CLEARED'
+
+
 # TODO: Implement this.
 class Scoreboard:
     def __init__(self, scoreboard_display, scoreboard_timer):
         self.scoreboard_display = scoreboard_display
         self.scoreboard_timer = scoreboard_timer
+        self.status = cleared
 
     def initialize(self):
         self.scoreboard_timer.start_timer_thread()
         self.reset()
 
+    def clear(self):
+        self.scoreboard_display.update_scoreboard(_clear_scoreboard_state())
+        self.scoreboard_timer.clear()
+        self.status = cleared
+
     def reset(self):
         self.scoreboard_display.update_scoreboard(_initial_scoreboard_state())
         self.scoreboard_timer.reset()
+        self.status = initialized
 
     @property
     def scoreboard(self):
@@ -42,6 +53,12 @@ class Scoreboard:
     def timer(self, timer):
         total_seconds = timer.get('minutes', 0) * 60 + timer.get('seconds', 0)
         self.scoreboard_timer.set(total_seconds)
+
+    def is_initialized(self):
+        return self.status == initialized
+
+    def get_status(self):
+        return {'status': self.status}
 
     def start_timer(self):
         self.scoreboard_timer.start()
@@ -68,7 +85,7 @@ class Scoreboard:
         self.scoreboard_timer.set_values("8888")
 
     def _clear_test_values(self):
-        self.scoreboard_display.update_scoreboard(_create_scoreboard_dict_with("__"))
+        self.scoreboard_display.update_scoreboard(_clear_scoreboard_state())
         self.scoreboard_timer.set_values("____")
 
 
@@ -102,3 +119,7 @@ def _initial_scoreboard_state():
         },
         "quarter": "1"
     }
+
+
+def _clear_scoreboard_state():
+    return _create_scoreboard_dict_with("__")

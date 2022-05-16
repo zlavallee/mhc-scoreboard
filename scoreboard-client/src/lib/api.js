@@ -51,6 +51,19 @@ class ScoreboardApi {
     const {data} = await axios.post(constants.api.timerStop)
     return data
   }
+
+  reset = () => {
+    return axios.post(constants.api.reset)
+  }
+
+  clear = () => {
+    return axios.post(constants.api.clear)
+  }
+
+  status = async () => {
+    const {data} = await axios.post(constants.api.status)
+    return data
+  }
 }
 
 const scoreboard = new ScoreboardApi();

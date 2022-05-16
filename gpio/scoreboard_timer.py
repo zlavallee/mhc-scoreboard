@@ -70,6 +70,10 @@ class ScoreboardTimer:
     def reset(self):
         self.set()
 
+    def clear(self):
+        logging.info('Clearing scoreboard timer.')
+        self.timer.clear()
+
     def set_values(self, values):
         self.led_output.set_values(values)
 

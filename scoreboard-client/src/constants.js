@@ -9,7 +9,10 @@ const constants = {
     scoreboard: `${apiBase}/scoreboard`,
     timer: `${apiBase}/timer`,
     timerStart: `${apiBase}/timer/start`,
-    timerStop: `${apiBase}/timer/stop`
+    timerStop: `${apiBase}/timer/stop`,
+    clear: `${apiBase}/clear`,
+    reset: `${apiBase}/reset`,
+    status: `${apiBase}/status`
   }
 };
 

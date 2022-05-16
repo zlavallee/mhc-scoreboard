@@ -18,6 +18,19 @@ initialize()
 scoreboard = create_scoreboard()
 
 
+@app.route('/api/v1.0/status', methods=['POST'])
+def get_status():
+    return flask.jsonify(scoreboard.get_status())
+
+
+@app.route('/api/v1.0/clear', methods=['POST'])
+def clear_scoreboard():
+    logging.info("Resetting scoreboard.")
+    scoreboard.clear()
+
+    return flask.jsonify(scoreboard.scoreboard)
+
+
 @app.route('/api/v1.0/reset', methods=['POST'])
 def reset_scoreboard():
     logging.info("Resetting scoreboard.")
@@ -37,6 +50,9 @@ def get_scoreboard():
 
 @app.route('/api/v1.0/scoreboard', methods=['POST'])
 def post_scoreboard():
+    if not scoreboard.is_initialized():
+        return 400
+
     scoreboard_json = request.get_json()
 
     logging.info("Updating scoreboard: {}".format(scoreboard_json))
@@ -57,6 +73,9 @@ def get_timer():
 
 @app.route('/api/v1.0/timer', methods=['POST'])
 def set_timer():
+    if not scoreboard.is_initialized():
+        return 400
+
     timer_json = request.get_json()
 
     logging.info("Updating timer: {}".format(timer_json))
@@ -67,6 +86,9 @@ def set_timer():
 
 @app.route('/api/v1.0/timer/start', methods=['POST'])
 def start_timer():
+    if not scoreboard.is_initialized():
+        return 400
+
     logging.info("Starting timer.")
     scoreboard.start_timer()
 
@@ -77,6 +99,9 @@ def start_timer():
 
 @app.route('/api/v1.0/timer/stop', methods=['POST'])
 def stop_timer():
+    if not scoreboard.is_initialized():
+        return 400
+
     logging.info("Stopping timer.")
     scoreboard.stop_timer()
     return flask.jsonify(scoreboard.timer), 200
