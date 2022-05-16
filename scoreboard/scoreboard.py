@@ -25,7 +25,7 @@ class Scoreboard:
 
     def initialize(self):
         self.scoreboard_timer.start_timer_thread()
-        self.reset()
+        self.clear()
 
     def clear(self):
         self.scoreboard_display.update_scoreboard(_clear_scoreboard_state())
