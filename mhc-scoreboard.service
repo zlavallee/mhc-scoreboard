@@ -1,0 +1,11 @@
+[Unit]
+Description=Milwaukee Hurling Club Scoreboard
+After=network.target
+
+[Service]
+WorkingDirectory=/usr/lib/mhc-scoreboard/
+ExecStart=/usr/lib/mhc-scoreboard/run.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
