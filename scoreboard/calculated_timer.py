@@ -51,6 +51,10 @@ class MinuteSecondTimer(NanoSecondTimer):
         super().__init__()
 
     def get_minutes_seconds(self):
+        time = self.get_time()
+        if time is None:
+            return '__', '__'
+
         seconds = to_seconds(self.get_time())
 
         return get_minutes(seconds), get_seconds(seconds)

@@ -1,7 +1,7 @@
 
 //TODO: Do this properly
-// const apiBase = 'http://localhost:5000/api/v1.0'
-const apiBase = '/api/v1.0'
+const apiBase = 'http://localhost:5000/api/v1.0'
+// const apiBase = '/api/v1.0'
 
 const constants = {
   mhcLogo: './mhc-logo.png',
