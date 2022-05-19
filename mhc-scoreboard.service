@@ -6,6 +6,8 @@ After=network.target
 WorkingDirectory=/usr/lib/mhc-scoreboard/
 ExecStart=/usr/lib/mhc-scoreboard/run.sh
 Restart=always
+User=pi
+Group=pi
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
