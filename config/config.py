@@ -18,17 +18,17 @@ SCOREBOARD_CONFIG = {
         'quarter'
     ],
     'timer': {
-        'serial_data_input': 15,
-        'memory_clock': 16,
-        'serial_clock': 18,
+        'serial_data_input': 15,  # GPIO22
+        'memory_clock': 16,  # GPIO23
+        'serial_clock': 18,  # GPIO24
         'clock_speed': 0.001,
         'update_interval': .1
 
     },
     'scoreboard': {
-        'serial_data_input': 11,
-        'memory_clock': 12,
-        'serial_clock': 13,
+        'serial_data_input': 11,  # GPIO17
+        'memory_clock': 12,  # GPIO18
+        'serial_clock': 13,  # GPIO27
         'clock_speed': 0.001
     }
 }
